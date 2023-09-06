@@ -4,6 +4,7 @@ import cv2
 def compareFaces(img1, img2):
     # let's match two faces 
     
+    print('hello')
 
     faceOne = fr.load_image_file(img1)
     faceTwo = fr.load_image_file(img2)
