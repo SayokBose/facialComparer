@@ -1,5 +1,6 @@
 import face_recognition as fr  
 import cv2 
+from functions import *
 
 def compareFaces(img1, img2):
     # let's match two faces 
