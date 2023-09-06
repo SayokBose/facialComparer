@@ -1,5 +1,8 @@
 import face_recognition as fr  
 import cv2 
+def getEncoder(img):
+    #return a encoder val of the person
+    return 0
 
 def compareFaces(img1, img2):
     # let's match two faces 
