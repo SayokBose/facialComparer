@@ -13,7 +13,7 @@ class Person:
 
 def idtentifyFace(img1, faces):
     #faces is a list of all the unqiue people
-    for Person in faces:
+    for person in faces:
         continue
         #compare the img1 encoder to face encoder
         #if match, add img1 to face.folder
