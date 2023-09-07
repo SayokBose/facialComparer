@@ -19,7 +19,7 @@ class Person:
     #has a folderpath stored as a string
     #has a encoder which is a list
 
-def idtentifyFace(img, faces):
+def identifyFace(img, faces):
     #faces is a list of all the unqiue people
     encoder = getEncoder(img)
     match = False
