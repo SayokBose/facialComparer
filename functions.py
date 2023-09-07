@@ -7,6 +7,7 @@ def getEncoder(img):
     RgbFaceOne  = cv2.cvtColor(faceOne,cv2.COLOR_BGR2RGB)
     faceLocOne = fr.face_locations(RgbFaceOne)[0]
     faceOneEnco = fr.face_encodings(RgbFaceOne)[0]
+    
     return faceOneEnco
 
 #create person object
