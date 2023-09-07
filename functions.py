@@ -3,7 +3,7 @@ import cv2
 
 def getEncoder(img):
     #return a encoder val of the person
-    faceOne = fr.load_image_file(img1)
+    faceOne = fr.load_image_file(img)
     RgbFaceOne  = cv2.cvtColor(faceOne,cv2.COLOR_BGR2RGB)
     faceLocOne = fr.face_locations(RgbFaceOne)[0]
     faceOneEnco = fr.face_encodings(RgbFaceOne)[0]
