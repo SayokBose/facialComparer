@@ -21,27 +21,22 @@ class Person:
     #has a folderpath stored as a string
     #has a encoder which is a list
 
-def identifyFace(img, faces_folder):
-    # Load existing person objects and their encodings from the faces_folder
-    faces = []
-    for person_folder in os.listdir(faces_folder):
-        person_folder_path = os.path.join(faces_folder, person_folder)
-        if os.path.isdir(person_folder_path):
-            # Load the encoding from the known_encoding.npy file
-            encoder = np.load(os.path.join(person_folder_path, 'known_encoding.npy'))
-            person = Person(encoder, person_folder)
-            faces.append(person)
+def identifyFace(img, faces, current_File):
 
     # Calculate the encoding of the input image
     encoder = getEncoder(img)
 
     match = False
     for person in faces:
-        match_result = fr.compare_faces([encoder], person.encoder)
+        for enc in person.encoder :
+            match_result = fr.compare_faces([encoder], enc)
+            if match_result[0]:
+                break
         if match_result[0]:
+            person.encoder.append(encoder)
             match = True
             # Add img to the person's folder
-            person_folder_path = os.path.join(faces_folder, person.folder)
+            person_folder_path = os.path.join(current_File, person.folder)
             img_filename = os.path.basename(img)
             cv2.imwrite(os.path.join(person_folder_path, img_filename), cv2.imread(img))
             break
@@ -49,13 +44,20 @@ def identifyFace(img, faces_folder):
     if not match:
         # Create a new folder directory
         new_folder = "person_" + str(len(faces) + 1)
-        new_person_folder_path = os.path.join(faces_folder, new_folder)
+        new_person_folder_path = os.path.join(current_File, new_folder)
         os.makedirs(new_person_folder_path)
-        np.save(os.path.join(new_person_folder_path, 'known_encoding.npy'), encoder)
         img_filename = os.path.basename(img)
         cv2.imwrite(os.path.join(new_person_folder_path, img_filename), cv2.imread(img))
-        
-        new_person = Person(encoder, new_folder)
+        print(img)
+        new_person = Person([encoder], new_folder)
         faces.append(new_person)
 
     return faces
+files = os.listdir("/Users/aadi/Desktop/Courses/Personal Projects/Photo")
+faces = []
+image_extensions = (".jpg", ".jpeg", ".png", ".gif", ".webp")
+for i in files:
+    if i[0] == '.':
+        continue
+    else:
+        faces = identifyFace("/Users/aadi/Desktop/Courses/Personal Projects/Photo/"+i ,faces,"/Users/aadi/Desktop/Courses/Personal Projects/Photo")
