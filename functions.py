@@ -3,6 +3,7 @@ import face_recognition as fr
 import cv2 
 import numpy as np
 
+
 def getEncoder(img):
     #return a encoder val of the person
     faceOne = fr.load_image_file(img)
@@ -61,3 +62,4 @@ for i in files:
         continue
     else:
         faces = identifyFace("/Users/aadi/Desktop/Courses/Personal Projects/Photo/"+i ,faces,"/Users/aadi/Desktop/Courses/Personal Projects/Photo")
+
