@@ -25,9 +25,8 @@ def compareFaces(img1, img2):
     faceOneEnco = fr.face_encodings(RgbFaceOne)[0]
     faceTwoEnco = fr.face_encodings(RgbFaceTwo)[0]
 
-
     # matching Face  
-    MatchResult = fr.compare_faces([faceOneEnco],faceTwoEnco)
+    MatchResult = fr.compare_faces(faceOneEnco,[faceTwoEnco])
 
     return MatchResult[0]
 
@@ -41,7 +40,7 @@ def compareFaces(img1, img2):
     cv2.waitKey()
     print('done')'''
 
-p1 = "/Users/sayok/Desktop/Projects/facial_app/people/isla.jpg"
-p2 = "/Users/sayok/Desktop/Projects/facial_app/people/isla2.jpg"
+p1 = "/Users/aadi/Desktop/Courses/Personal Projects/Photo/sue-bird-final-game-090722-1-e385b80d73bf411bb35f4ad3d22b635e.jpg"
+p2 = "/Users/aadi/Desktop/Courses/Personal Projects/Photo/sue-bird-si-vault.jpg"
 result = compareFaces(p1,p2)
 print(result)
