@@ -82,9 +82,18 @@ class FaceComparer(QMainWindow):
 
     def organize(self):
         #iterate through all the images in the folder. the path is self.folder_path
-        
+        files = os.listdir(self.folder_path)
+        #image_extensions = (".jpg", ".jpeg", ".png", ".gif", ".webp")
+        for i in files:
+            print(i)
+            if i[0] == '.':
+                continue
+            else:
+                self.faces = identifyFace(self.folder_path + "/" +i ,self.faces, self.folder_path)
+
+        '''
         for img in folder: #sudo code not actually the way to iterate
-            self.faces = identifyFace(img,self.faces)
+            self.faces = identifyFace(img,self.faces)'''
 
 
 

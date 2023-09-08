@@ -54,12 +54,4 @@ def identifyFace(img, faces, current_File):
         faces.append(new_person)
 
     return faces
-files = os.listdir("/Users/aadi/Desktop/Courses/Personal Projects/Photo")
-faces = []
-image_extensions = (".jpg", ".jpeg", ".png", ".gif", ".webp")
-for i in files:
-    if i[0] == '.':
-        continue
-    else:
-        faces = identifyFace("/Users/aadi/Desktop/Courses/Personal Projects/Photo/"+i ,faces,"/Users/aadi/Desktop/Courses/Personal Projects/Photo")
 
