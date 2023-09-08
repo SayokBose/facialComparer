@@ -1,5 +1,8 @@
+import os
 import face_recognition as fr  
 import cv2 
+import numpy as np
+
 
 def getEncoder(img):
     #return a encoder val of the person
@@ -19,22 +22,44 @@ class Person:
     #has a folderpath stored as a string
     #has a encoder which is a list
 
-def identifyFace(img, faces):
-    #faces is a list of all the unqiue people
+def identifyFace(img, faces, current_File):
+
+    # Calculate the encoding of the input image
     encoder = getEncoder(img)
+
     match = False
     for person in faces:
-        MatchResult = fr.compare_faces([encoder],person.encoder)
-        if MatchResult[0]:
+        for enc in person.encoder :
+            match_result = fr.compare_faces([encoder], enc)
+            if match_result[0]:
+                break
+        if match_result[0]:
+            person.encoder.append(encoder)
             match = True
-            #add img to person.folder
+            # Add img to the person's folder
+            person_folder_path = os.path.join(current_File, person.folder)
+            img_filename = os.path.basename(img)
+            cv2.imwrite(os.path.join(person_folder_path, img_filename), cv2.imread(img))
             break
-    if not match:
-        #create a new folder directory
-        newFolder = ""
-        newFace = Person(encoder,newFolder)
-        faces.append(newFace)
-    #if not, its a unique face and create new person object and append to faces
 
-    #update faces incase a new person was added
+    if not match:
+        # Create a new folder directory
+        new_folder = "person_" + str(len(faces) + 1)
+        new_person_folder_path = os.path.join(current_File, new_folder)
+        os.makedirs(new_person_folder_path)
+        img_filename = os.path.basename(img)
+        cv2.imwrite(os.path.join(new_person_folder_path, img_filename), cv2.imread(img))
+        print(img)
+        new_person = Person([encoder], new_folder)
+        faces.append(new_person)
+
     return faces
+files = os.listdir("/Users/aadi/Desktop/Courses/Personal Projects/Photo")
+faces = []
+image_extensions = (".jpg", ".jpeg", ".png", ".gif", ".webp")
+for i in files:
+    if i[0] == '.':
+        continue
+    else:
+        faces = identifyFace("/Users/aadi/Desktop/Courses/Personal Projects/Photo/"+i ,faces,"/Users/aadi/Desktop/Courses/Personal Projects/Photo")
+
