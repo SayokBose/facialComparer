@@ -89,7 +89,6 @@ class FaceComparer(QMainWindow):
                 continue
             else:
                 self.faces = identifyFace(self.folder_path + "/" +i ,self.faces, self.folder_path)
-
         '''
         for img in folder: #sudo code not actually the way to iterate
             self.faces = identifyFace(img,self.faces)'''

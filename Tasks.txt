@@ -1,1 +1,20 @@
 hint
+def idtentifyFace(img, faces):
+    #faces is a list of all the unqiue people
+    encoder = getEncoder(img)
+    match = False
+    for person in faces:
+        MatchResult = fr.compare_faces([encoder],person.encoder)
+        if MatchResult[0]:
+            match = True
+            #add img to person.folder
+            break
+    if not match:
+        #create a new folder directory
+        newFolder = ""
+        newFace = Person(encoder,newFolder)
+        faces.append(newFace)
+    #if not, its a unique face and create new person object and append to faces
+
+    #update faces incase a new person was added
+    return faces

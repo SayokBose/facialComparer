@@ -1,7 +1,9 @@
+import os
 import face_recognition as fr  
 import cv2 
 import sys
 import os
+import numpy as np
 
 #create person object
 class Person:
@@ -55,3 +57,4 @@ def identifyFace(img, faces,current_File):
 
     #update faces incase a new person was added
     return faces
+
