@@ -82,9 +82,17 @@ class FaceComparer(QMainWindow):
 
     def organize(self):
         #iterate through all the images in the folder. the path is self.folder_path
-        
+        files = os.listdir(self.folder_path)
+        #image_extensions = (".jpg", ".jpeg", ".png", ".gif", ".webp")
+        for i in files:
+            if i[0] == '.':
+                continue
+            else:
+                self.faces = identifyFace(self.folder_path + "/" +i ,self.faces, self.folder_path)
+
+        '''
         for img in folder: #sudo code not actually the way to iterate
-            self.faces = identifyFace(img,self.faces)
+            self.faces = identifyFace(img,self.faces)'''
 
 
 
@@ -127,9 +135,8 @@ def compareFaces(img1, img2):
     faceOneEnco = fr.face_encodings(RgbFaceOne)[0]
     faceTwoEnco = fr.face_encodings(RgbFaceTwo)[0]
 
-
     # matching Face  
-    MatchResult = fr.compare_faces([faceOneEnco],faceTwoEnco)
+    MatchResult = fr.compare_faces(faceOneEnco,[faceTwoEnco])
 
     
 
@@ -143,6 +150,7 @@ def compareFaces(img1, img2):
     cv2.waitKey()
     print('done')
     return MatchResult[0]
+
 
 
 p2 = "/Users/sayok/Desktop/Projects/facial_app/people/kimb4.jpg"
